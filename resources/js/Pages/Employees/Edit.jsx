@@ -1,5 +1,3 @@
-// resources/js/Pages/Employees/Edit.jsx
-
 import React from "react";
 import { Head, useForm, Link, router } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
@@ -61,7 +59,6 @@ const Edit = ({ employee, departments, accessLogs }) => {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 grid grid-cols-3 gap-6">
                     
-                    {/* COLUMNA IZQUIERDA: Formulario de Edición (2/3 de ancho) */}
                     <div className="col-span-3 lg:col-span-2 bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                         <h3 className="text-xl font-bold mb-6 text-gray-800">
                             Información Básica y Permisos
@@ -69,9 +66,7 @@ const Edit = ({ employee, departments, accessLogs }) => {
                         
                         <form onSubmit={submit} className="space-y-6">
                             
-                            {/* Diseño de 2 Columnas para campos de entrada */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {/* Columna 1 */}
                                 <div className="space-y-6">
                                     <div>
                                         <InputLabel htmlFor="internal_id" value="ID Interno (Tarjeta)" />

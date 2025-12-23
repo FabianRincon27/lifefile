@@ -1,10 +1,8 @@
-// resources/js/Pages/Employees/Create.jsx
-
 import React from 'react';
 import { Head, useForm } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput'; // Asume un componente de input
+import TextInput from '@/Components/TextInput';
 import InputLabel from '@/Components/InputLabel';
 import InputError from '@/Components/InputError';
 import Checkbox from '@/Components/Checkbox';
@@ -15,7 +13,7 @@ const Create = ({ departments }) => {
         first_name: '',
         last_name: '',
         email: '',
-        department_id: departments[0]?.id || '', // Seleccionar el primer departamento por defecto
+        department_id: departments[0]?.id || '',
         has_room_911_access: false,
     });
 

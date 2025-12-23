@@ -1,5 +1,3 @@
-// resources/js/Pages/AccessControl/Reader.jsx
-
 import React from "react";
 import { Head, useForm, router, Link, usePage } from "@inertiajs/react";
 import {

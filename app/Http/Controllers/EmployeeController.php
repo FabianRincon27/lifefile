@@ -66,22 +66,6 @@ class EmployeeController extends Controller
         return redirect()->route('employees.index')->with('success', 'Empleado creado exitosamente.');
     }
 
-    protected function formatImportFailures(array $failures): string
-    {
-        $errorString = '';
-
-        foreach ($failures as $failure) {
-            $errorString .= sprintf(
-                "Fila %d: %s (Columnas: %s)\n",
-                $failure->row(),
-                implode(', ', $failure->errors()), 
-                implode(', ', $failure->attribute()) 
-            );
-        }
-
-        return $errorString;
-    }
-
     public function edit(Employee $employee)
     {
         $employee->load('department'); 
