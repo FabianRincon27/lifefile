@@ -22,6 +22,10 @@ Route::middleware(['auth', 'auth.admin'])->group(function () {
 
     Route::resource('/employees', EmployeeController::class);
 
+    Route::get('/employees/template/download', [EmployeeController::class, 'downloadTemplate'])->name('employees.template.download');
+
+    Route::post('/employees/import', [EmployeeController::class, 'import'])->name('employees.import');
+
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
 

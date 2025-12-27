@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Imports\EmployeesImport; 
+use App\Exports\EmployeesTemplateExport;
+use App\Imports\EmployeesImport;
 use Illuminate\Validation\ValidationException;
 
 class EmployeeController extends Controller
@@ -114,5 +115,30 @@ class EmployeeController extends Controller
         return redirect()->route('employees.index')
                          ->with('success', 'Empleado eliminado correctamente.');
     }
+
+    public function downloadTemplate()
+    {
+        return Excel::download(
+            new EmployeesTemplateExport,
+            'plantilla_empleados.xlsx'
+        );
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file|mimes:xlsx,xls',
+        ]);
+
+        try {
+            Excel::import(new EmployeesImport, $request->file('file'));
+
+            return back()->with('success', 'Empleados importados correctamente');
+        } catch (\Throwable $e) {
+            return back()->with('error', 'Error al importar: ' . $e->getMessage());
+        }
+    }
+
+    
     
 }

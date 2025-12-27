@@ -7,6 +7,8 @@ import SecondaryButton from "@/Components/SecondaryButton";
 const Index = ({ employees, departments, filters }) => {
     const { props } = usePage();
     const flash = props.flash || {};
+    const [fileName, setFileName] = useState("Seleccionar archivo");
+    const [hasFile, setHasFile] = useState(false);
 
     const [localFilters, setLocalFilters] = useState({
         search: filters.search || "",
@@ -57,10 +59,51 @@ const Index = ({ employees, departments, filters }) => {
                         </div>
                     )}
 
-                    <div className="flex justify-end mb-4">
+                    <div className="flex justify-end items-center gap-3 mb-4">
                         <Link href={route("employees.create")}>
                             <PrimaryButton>Añadir Nuevo Empleado</PrimaryButton>
                         </Link>
+
+                        <a
+                            href={route("employees.template.download")}
+                            className="inline-flex items-center px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-md hover:bg-green-700 transition"
+                        >
+                            Descargar Plantilla
+                        </a>
+
+                        <form
+                            onSubmit={(e) => {
+                                e.preventDefault();
+                                router.post(
+                                    route("employees.import"),
+                                    new FormData(e.target)
+                                );
+                            }}
+                            encType="multipart/form-data"
+                            className="flex items-center gap-2"
+                        >
+                            <label className="relative cursor-pointer">
+                                <input
+                                    type="file"
+                                    name="file"
+                                    required
+                                    onChange={(e) => {
+                                        const file = e.target.files[0];
+                                        setFileName(file ? file.name : "Seleccionar archivo");
+                                        setHasFile(!!file);
+                                    }}                                    
+                                    className="absolute inset-0 opacity-0 cursor-pointer"
+                                />
+
+                                <span className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md text-sm bg-white hover:bg-gray-50 max-w-[220px] truncate">
+                                    {fileName}
+                                </span>
+                            </label>
+
+                            <PrimaryButton type="submit" disabled={!hasFile}>
+                                Importar Excel
+                            </PrimaryButton>
+                        </form>
                     </div>
 
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
